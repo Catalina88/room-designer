@@ -1,41 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Image } from 'react-konva';
 
-import BedImg from '../assets/sofa.png';
-import SofaImg from '../assets/table.png';
-import TableImg from '../assets/chair.png';
-import ChairImg from '../assets/lamp.png';
+const IMAGE_MAP = {
+  sofa: '/furniture/sofa.png',
+  bed: '/furniture/bed.png',
+  table: '/furniture/table.png',
+  chair: '/furniture/chair.png',
+};
 
+function RoomObject({ object, onClick }) {
+  const [image, setImage] = useState(null);
 
+  useEffect(() => {
+    const img = new window.Image();
+    img.src = IMAGE_MAP[object.type];
 
+    img.onload = () => setImage(img);
+    img.onerror = () => console.error('Error loading', img.src);
+  }, [object.type]);
 
-const RoomObject = ({object, onDragStar})  => {
-    let ObjectImg;//we store an empty variable to locate the path we choose
-    switch (object.type) { //One of the images imported into the ObjectImage variable is chosen.
-        case 'sofa':
-            ObjectImg = SofaImg;
-            break;
-        case 'table':
-            ObjectImg = TableImg;
-            break;
-        case 'chair':
-            ObjectImg = ChairImg;
-            break;
-        case 'lamp':
-            ObjectImg = LampImg;
-            break;
-        default:
-            ObjectImg = SofaImg;
-    }
+  if (!image) return null;
 
-
-    return(
-        <img
-            src={ObjectImg}
-            alt={"Set Mobiliario"}
-            draggable //makes the object draggable
-            onDragStart={(e) => onDragStart(e, object)}
-            className="w-15 h-15 m-1 object-cover"
-        />
-
-    )
+  return (
+    <Image
+      image={image}
+      x={object.x}
+      y={object.y}
+      width={80}
+      height={80}
+      draggable
+      onClick={onClick}   // 🔥 CLICK REAL
+    />
+  );
 }
+
+export default RoomObject;
+
