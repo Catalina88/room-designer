@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState } from 'react';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
@@ -7,49 +6,60 @@ import { objectsSet } from './components/data';
 
 function App() {
   const [objects, setObjects] = useState([]);
-  const [selectedObject, setSelectedObject] = useState(null);
+  const [selectedId, setSelectedId] = useState(null);
 
   const addObject = (type) => {
     const obj = objectsSet.find((o) => o.type === type);
     if (!obj) return;
     setObjects((prev) => [
       ...prev,
-      { id: Date.now(), type: obj.type, x: 100, y: 100 },
+      { id: Date.now(), type: obj.type, x: 100, y: 100, rotation: 0, image: obj.image },
     ]);
   };
 
-  const handleDropObject = (type, x, y) => {
-    setObjects((prev) => [
-      ...prev,
-      { id: Date.now(), type, x, y },
-    ]);
+  const rotateSelected = () => {
+    if (!selectedId) return;
+    setObjects((prev) =>
+      prev.map((obj) =>
+        obj.id === selectedId ? { ...obj, rotation: (obj.rotation + 45) % 360 } : obj
+      )
+    );
   };
 
-  const handleObjectClick = (obj) => setSelectedObject(obj);
+  const deleteSelected = () => {
+    if (!selectedId) return;
+    setObjects((prev) => prev.filter((obj) => obj.id !== selectedId));
+    setSelectedId(null);
+  };
+
+  const clearAll = () => {
+    setObjects([]);
+    setSelectedId(null);
+  };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
       <Header />
       <div style={{ display: 'flex', flex: 1 }}>
-        <Sidebar addObject={addObject} />
+        <Sidebar
+          addObject={addObject}
+          selectedId={selectedId}
+          onRotate={rotateSelected}
+          onDelete={deleteSelected}
+          onClear={clearAll}
+        />
         <PlannerCanvas
           objects={objects}
-          onObjectClick={handleObjectClick}
-          onDropObject={handleDropObject}
+          setObjects={setObjects}
+          selectedId={selectedId}
+          setSelectedId={setSelectedId}
         />
       </div>
-      {selectedObject && (
-        <div style={{ padding: 20, borderLeft: '1px solid #ccc', width: 300 }}>
-          <h3>Selected Object: {selectedObject.type}</h3>
-          <p>
-            Position: ({Math.round(selectedObject.x)},{' '}
-            {Math.round(selectedObject.y)})
-          </p>
-          <button onClick={() => setSelectedObject(null)}>Close</button>
-        </div>
-      )}
     </div>
   );
 }
 
 export default App;
+
+
+

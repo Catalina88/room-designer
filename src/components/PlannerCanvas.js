@@ -1,51 +1,76 @@
-// src/components/PlannerCanvas.js
-import React from 'react';
-import { objectsSet } from './data';
+import React, { useRef, useEffect } from 'react';
+import { Stage, Layer, Image, Transformer } from 'react-konva';
+import useImage from 'use-image';
 
-function PlannerCanvas({ objects, onObjectClick, onDropObject }) {
-  const handleDrop = (e) => {
-    e.preventDefault();
-    const type = e.dataTransfer.getData('type');
-    const rect = e.target.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    onDropObject(type, x, y);
-  };
+function Furniture({ obj, isSelected, onSelect, onChange }) {
+  const imageRef = useRef();
+  const trRef = useRef();
+  const [image] = useImage(obj.image);
 
-  const handleDragOver = (e) => e.preventDefault();
+  useEffect(() => {
+    if (isSelected && trRef.current && imageRef.current) {
+      trRef.current.nodes([imageRef.current]);
+      trRef.current.getLayer().batchDraw();
+    }
+  }, [isSelected]);
 
   return (
-    <div
-      onDrop={handleDrop}
-      onDragOver={handleDragOver}
-      style={{
-        flex: 1,
-        position: 'relative',
-        background: '#f0f0f0',
-      }}
-    >
-      {objects.map((obj) => {
-        // Encontramos la imagen correspondiente
-        const objData = objectsSet.find((o) => o.type === obj.type);
-        return (
-          <img
-            key={obj.id}
-            src={objData?.image}
-            alt={obj.type}
-            onClick={() => onObjectClick(obj)}
-            style={{
-              position: 'absolute',
-              left: obj.x,
-              top: obj.y,
-              width: 80,
-              height: 80,
-              cursor: 'pointer',
-            }}
-          />
-        );
-      })}
-    </div>
+    <>
+      <Image
+        ref={imageRef}
+        image={image}
+        x={obj.x}
+        y={obj.y}
+        width={80}
+        height={80}
+        rotation={obj.rotation || 0}
+        offsetX={40}
+        offsetY={40}
+        draggable
+        onClick={onSelect}
+        onTap={onSelect}
+        onDragEnd={(e) => onChange({ ...obj, x: e.target.x(), y: e.target.y() })}
+        onTransformEnd={() => {
+          const node = imageRef.current;
+          onChange({ ...obj, x: node.x(), y: node.y(), rotation: node.rotation() });
+        }}
+      />
+      {isSelected && <Transformer ref={trRef} rotateEnabled={true} enabledAnchors={[]} />}
+    </>
   );
 }
 
-export default PlannerCanvas;
+export default function PlannerCanvas({ objects, setObjects, selectedId, setSelectedId }) {
+  const checkDeselect = (e) => {
+    if (e.target === e.target.getStage()) setSelectedId(null);
+  };
+
+  const handleChange = (newAttrs) => {
+    setObjects((prev) => {
+      const others = prev.filter((obj) => obj.id !== newAttrs.id);
+      return [...others, newAttrs];
+    });
+  };
+
+  return (
+    <Stage
+      width={window.innerWidth - 200}
+      height={window.innerHeight}
+      onMouseDown={checkDeselect}
+      onTouchStart={checkDeselect}
+      style={{ backgroundColor: '#f0f0f0' }}
+    >
+      <Layer>
+        {objects.map((obj) => (
+          <Furniture
+            key={obj.id}
+            obj={obj}
+            isSelected={obj.id === selectedId}
+            onSelect={() => setSelectedId(obj.id)}
+            onChange={handleChange}
+          />
+        ))}
+      </Layer>
+    </Stage>
+  );
+}
