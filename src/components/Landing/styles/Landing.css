@@ -1,0 +1,125 @@
+#hero {
+  padding-top: 2rem;
+  min-height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.35)),
+    url("../../../../public/img/portada.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  padding: 0 7rem;
+}
+#hero h1 {
+  font-size: 3.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.cta-button {
+  background-color: olivedrab;
+  color: white;
+  border: none;
+  border-color: white;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: rgb(95, 127, 29);
+  transform: scale(1.05);
+}
+
+#SobreNosotros {
+  padding: 2rem 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  animation: fadeIn 1s ease;
+}
+
+#SobreNosotros h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.2rem;
+  color: #333;
+}
+.SobreNosotros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.SobreNosotros-card {
+background-color: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  
+}
+.SobreNosotros-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+.image-wrapper {
+  width: 89%;
+  overflow: hidden;
+}
+.image-wrapper img {
+  width: 100%;       
+    height: 300px;
+    object-fit: cover;
+    display: block
+}
+
+
+.image-wrapper:hover img {
+  transform: scale(1.07);
+}
+.descripcion {
+  padding: 1.5rem;
+  font-size: 1rem;
+  color: lch(3% 1.24 19.37);
+  text-align: justify;
+}
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(25px);
+  animation: fadeUp 1s forwards;
+}
+.delay-1 {
+  animation-delay: 0.3s;
+}
+.delay-2 {
+  animation-delay: 0.6s;
+}
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
