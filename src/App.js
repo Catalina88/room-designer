@@ -1,4 +1,4 @@
-
+// src/App.js
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -11,7 +11,7 @@ export default function App() {
       <Routes>
         <Route element={<AppLayout />}>
           <Route path="/" element={<Landing />} />
-          <Route path="/planner" element={<Layout />} ></Route>
+          <Route path="/planner" element={<Layout />} />
         </Route>
       </Routes>
     </BrowserRouter>
