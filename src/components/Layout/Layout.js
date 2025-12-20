@@ -61,7 +61,6 @@ const Layout = () => {
         selectedId={selectedId}
         setSelectedId={setSelectedId}
       />
-
     </div>
   );
 };
