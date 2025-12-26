@@ -1,0 +1,13 @@
+.object-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.object-img {
+  width: 10px;
+  height: 10px;
+  object-fit: contain;
+  border: 2px solid red;
+}
