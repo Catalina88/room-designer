@@ -1,26 +1,31 @@
 import "./styles/Landing.css";
+import { Link } from "react-router-dom";
 
 const Landing = () => {
   return (
     <div>
       <main>
         <section id="hero">
-          <h1 class="fade-in">Room Layout Planner</h1>
-          <p class="fade-in delay-1">
+          <h1 className="fade-in">Room Layout Planner</h1>
+          <p className="fade-in delay-1">
             Piensa en tus mejores ideas y plásmalas aquí
           </p>
-          <button class="cta-button fade-in delay-2">Plan Your Room</button>
+
+          <Link to="/planner" className="cta-button fade-in delay-2">
+            Plan Your Room
+          </Link>
         </section>
 
-        <section id="SobreNosotros">
-          <h2 class="fade-in">Quiénes Somos</h2>
 
-          <div class="SobreNosotros-grid fade-in-up">
-            <div class="SobreNosotros-card">
-              <div class="image-wrapper">
+        <section id="SobreNosotros">
+          <h2 className="fade-in">Quiénes Somos</h2>
+
+          <div className="SobreNosotros-grid fade-in-up">
+            <div className="SobreNosotros-card">
+              <div className="image-wrapper">
                 <img src="/img/sobre-nosotros.png" alt="SobreNosotros" />
               </div>
-              <p class="descripcion">
+              <p className="descripcion">
                 Esta es nuestra primera página web y decidimos crearla sobre un
                 room planner, un proyecto que nos motivó a aprender más cada
                 día. Le dedicamos tiempo, esfuerzo y estudio, y gracias al

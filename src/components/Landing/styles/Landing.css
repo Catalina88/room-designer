@@ -31,6 +31,14 @@
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
+.cta-button,
+.cta-button:visited,
+.cta-button:hover,
+.cta-button:active {
+  text-decoration: none;
+}
+
+
 .cta-button:hover {
   background-color: rgb(95, 127, 29);
   transform: scale(1.05);
