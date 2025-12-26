@@ -1,7 +1,7 @@
 import "./Layout.css"
 import React, { useState } from "react";
 import Sidebar from "../Sidebar";
-import PlannerCanvas from "../PlannerCanvas";
+import PlannerCanvas from "../PlannerCanvas/PlannerCanvas";
 import { objectsSet } from "../data";
 
 const Layout = () => {
@@ -47,7 +47,7 @@ const Layout = () => {
   };
 
   return (
-    <div className="layout">
+    <div style={{ display: "flex", flexDirection: "row", padding: "10px" }}>
       <Sidebar
         addObject={addObject}
         selectedId={selectedId}

@@ -2,9 +2,9 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import AppLayout from "./components/Layout/AppLayout";
+import AppLayout from "./components/AppLayout/AppLayout";
 import Landing from "./components/Landing";
-import Layout from "./components/Layout";
+import Layout from "./components/AppLayout";
 export default function App() {
   return (
     <BrowserRouter>
