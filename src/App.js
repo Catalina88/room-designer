@@ -11,6 +11,7 @@ export default function App() {
         <Route element={<AppLayout />}>
           <Route path="/" element={<Landing />} />
           <Route path="/planner" element={<Layout />} />
+         
     
         </Route>
       </Routes>
