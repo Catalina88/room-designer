@@ -1,7 +1,23 @@
+import React, { useEffect } from "react";
+import { useLocation, Link } from "react-router-dom";
 import "./styles/Landing.css";
-import { Link } from "react-router-dom";
 
 const Landing = () => {
+  const { hash, pathname } = useLocation();
+  useEffect(() => {
+    if (hash) {
+      const id = hash.replace("#", "");
+      const element = document.getElementById(id);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 0);
+      }
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [hash, pathname]);
+
   return (
     <div>
       <main>
@@ -15,7 +31,6 @@ const Landing = () => {
             Plan Your Room
           </Link>
         </section>
-
 
         <section id="SobreNosotros">
           <h2 className="fade-in">Quiénes Somos</h2>

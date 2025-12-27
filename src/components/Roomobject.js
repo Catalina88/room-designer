@@ -29,7 +29,7 @@ function RoomObject({ object, onClick }) {
       width={80}
       height={80}
       draggable
-      onClick={onClick}   // 🔥 CLICK REAL
+      onClick={onClick}   
     />
   );
 }

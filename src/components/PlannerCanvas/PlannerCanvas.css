@@ -1,52 +1,31 @@
 .planner-canvas {
-  flex:1;
-  position: absolute;
+  position: relative;
   width: 100%;
-  height: calc(100vh - 300px);
-   width: calc(100% - 200px);
-  overflow: hidden; /* evita scroll si no quieres que se mueva */
-  border-color: black;
-  z-index: 0;
+  height: calc(100vh - 150px); 
+  overflow: hidden;
+  background-color: #ffffff;
 }
+
 
 .planner-canvas > :first-child {
   position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none; /* CLAVE */
-}
-
-.planner-canvas canvas {
-  position: absolute;
   top: 0;
   left: 0;
-  z-index: 0; /* cuadrícula detrás de los objetos */
+  z-index: 1;
+  pointer-events: none; 
 }
+
+
+.konva-stage {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
 
 canvas {
   display: block;
-    float: right;
-      margin-left: 20px;
-      padding-left: 200px;
-      margin-right: 500px;
-      border-color: black;
-      z-index: 1000;
-  
-}
-
-.konva-stage {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10; /* Konva encima de la cuadrícula */
-   position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.planner-canvas canvas,
-.konva-stage {
-  position: absolute;
-  top: 0;
-  left: 0;
+  margin: 0 !important;
+  padding: 0 !important;
 }
